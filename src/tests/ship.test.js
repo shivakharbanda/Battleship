@@ -1,4 +1,4 @@
-import { Ship } from "./ship";
+import { Ship } from "../ship";
 
 test("shit init: happy path", ()=>{
     let ship = new Ship(3);
