@@ -1,15 +1,17 @@
 export class Ship{
     constructor(name, totalHits = 0, sunk = false) {
+        if (typeof(name) == "number") {
+            throw new Error("Ship name must be string");
+        }
         this.shipMap = this.shipMapInit();
 
         if (! this.shipMap.has(name)) {
-            throw new Error(`Invalid ship name: Valid ship names are : ${this.shipMap.keys}`);
+            throw new Error(`Invalid ship name`);
         }
         this.name = name;
-        this.length = getLength();
+        this.length = this.getLength();
         this.totalHits = totalHits;
         this.sunk = false;
-
     }
 
     getLength(){
