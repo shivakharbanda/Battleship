@@ -30,7 +30,25 @@ export class gameBoard {
                 row[col] = ship.name;
                 col += 1;
             }
+        } else {
+            let column = startCoordinate[1];
+            let row = startCoordinate[0]
+            this.checkIfShipAlreadyThere(startCoordinate, orientation, ship.length);
+            for (let i = 0; i < ship.length; i ++) {
+                this.board[row][column] = ship.name;
+                row += 1;
+            }
         }
+    }
+
+    _getBoardColumn(column) {
+        let columnArr = [];
+        let row = 0
+        while(columnArr.length !=this.board.length) {
+            columnArr.push(this.board[row][column]);
+            row ++;
+        }
+        return columnArr;
     }
 
     checkIfShipAlreadyThere(startCoordinate, orientation, shipLength) {
@@ -49,6 +67,19 @@ export class gameBoard {
                 }
                 
                 columnStart += 1;
+                shipLength -= 1;
+            }
+        } else {
+            let columnToCheck = startCoordinate[1];
+            let row = startCoordinate[0]
+            while(shipLength > 0) {
+                if (this.board[row][columnToCheck] == undefined) {
+                    throw new Error(`not enough space to put the ship of length ${shipLength}`);
+                }
+                if (this.board[row][columnToCheck] != 0) {
+                    throw new Error("Ship already at designated coordinate. Place it somewhere else");
+                }
+                row += 1;
                 shipLength -= 1;
             }
         }
