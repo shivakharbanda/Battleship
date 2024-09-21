@@ -128,7 +128,7 @@ describe('Recive Attack tests', () => {
     gameBoardObj.placeShip("carrier", coordinatesShip1, "h")
 
     test("case 1", ()=>{
-        let hit = gameBoardObj.receiveAttack([0,0]);
+        let [hit, allShipsSunk] = gameBoardObj.receiveAttack([0,0]);
         expect(hit).toBeTruthy();
         gameBoardObj.receiveAttack([0,1])
         gameBoardObj.receiveAttack([0,2])
@@ -142,14 +142,14 @@ describe('Recive Attack tests', () => {
 
     test("case 2", ()=>{
         console.log(gameBoardObj.board[5])
-        let hit = gameBoardObj.receiveAttack([5,5]);
+        let [hit, allShipsSunk] = gameBoardObj.receiveAttack([5,5]);
         expect(gameBoardObj.board[5][5]).toBe("M")
         expect(hit).toBeFalsy();
     })
 
     test("case 3", ()=>{
         expect(()=>{
-            let hit = gameBoardObj.receiveAttack([100, 100]);
+            let [hit, allShipsSunk] = gameBoardObj.receiveAttack([100, 100]);
         }).toThrowError();
     })
 })

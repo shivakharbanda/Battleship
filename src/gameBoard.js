@@ -9,6 +9,7 @@ export class gameBoard {
             this.board.push(row);
         }
         this.shipMap = new Map();
+        this.sunkenShips = [];
     }
     
     placeShip(name, startCoordinate, orientation = "h") {
@@ -52,22 +53,33 @@ export class gameBoard {
             if (location == 0) {
                 // no ship present
                 this.board[row][col] = "M"
-                return false;
+                return [false , this.checkIfAllShipsSunk()];
             }
 
             if (this.shipMap.has(location)) {
                 let ship = this.shipMap.get(location);
                 this.board[row][col] = "H"
-                ship.hit()
-                return true;
+                ship.hit();
+
+                if (ship.isSunk()) {
+                    this.sunkenShips.push(ship);
+                }
+                return [true , this.checkIfAllShipsSunk()];
             }
 
-            return false;
+            return [false , this.checkIfAllShipsSunk()];
        
         } catch(e){
             throw new Error("Invalid Coordinates");
         }
 
+    }
+
+    checkIfAllShipsSunk(){
+        if(this.sunkenShips.length == this.shipMap.keys.length) {
+            return true;
+        }
+        return false;
     }
 
     _getBoardColumn(column) {
