@@ -31,6 +31,7 @@ export class Ship{
     hit(){
         if (!this.sunk) {
             this.totalHits += 1;
+            this.sunk = this.isSunk()
         }
     }
 

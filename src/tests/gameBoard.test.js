@@ -107,3 +107,49 @@ describe('Test the ship placing abilities in Vertical sense', () => {
         );
     })
 })
+
+describe('Recive Attack tests', () => {
+// tests i should go for
+    // Cases:  
+    // 
+    // 1. if the ship is at the  valid coordinate
+    //      1.1 when i attch the health of the ship should go down 
+    //          and that coordinate should be turned to "HIT" 
+    //          should return "true"
+    //      1.2 when i hit that same place again nothing should happen
+    //          should return "false"
+    //    in all these cases the function should return true and false if that place is already hit
+    // 2. ship is not at the valid coordinate
+    //      then the coordinate should be turned to X meaning i missed and that place is already hit
+    //      receive attack should return "false" in this case
+    // 3. passing invalid coordinates should raise error
+    let gameBoardObj = new gameBoard();
+    let coordinatesShip1 = [0, 0];
+    gameBoardObj.placeShip("carrier", coordinatesShip1, "h")
+
+    test("case 1", ()=>{
+        let hit = gameBoardObj.receiveAttack([0,0]);
+        expect(hit).toBeTruthy();
+        gameBoardObj.receiveAttack([0,1])
+        gameBoardObj.receiveAttack([0,2])
+        gameBoardObj.receiveAttack([0,3])
+        gameBoardObj.receiveAttack([0,4])
+        let struckShip = gameBoardObj.shipMap.get("carrier")
+        expect(struckShip.sunk).toBeTruthy();
+
+        expect(gameBoardObj.board[0][4]).toBe("H")
+    })
+
+    test("case 2", ()=>{
+        console.log(gameBoardObj.board[5])
+        let hit = gameBoardObj.receiveAttack([5,5]);
+        expect(gameBoardObj.board[5][5]).toBe("M")
+        expect(hit).toBeFalsy();
+    })
+
+    test("case 3", ()=>{
+        expect(()=>{
+            let hit = gameBoardObj.receiveAttack([100, 100]);
+        }).toThrowError();
+    })
+})

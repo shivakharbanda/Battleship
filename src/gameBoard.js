@@ -8,6 +8,7 @@ export class gameBoard {
             let row = new Array(size).fill(0);
             this.board.push(row);
         }
+        this.shipMap = new Map();
     }
     
     placeShip(name, startCoordinate, orientation = "h") {
@@ -39,6 +40,34 @@ export class gameBoard {
                 row += 1;
             }
         }
+        this.shipMap.set(name, ship);
+    }
+
+    receiveAttack(coordinate) {
+        let row = coordinate[0];
+        let col = coordinate[1];
+        try {
+            let location = this.board[row][col];
+            
+            if (location == 0) {
+                // no ship present
+                this.board[row][col] = "M"
+                return false;
+            }
+
+            if (this.shipMap.has(location)) {
+                let ship = this.shipMap.get(location);
+                this.board[row][col] = "H"
+                ship.hit()
+                return true;
+            }
+
+            return false;
+       
+        } catch(e){
+            throw new Error("Invalid Coordinates");
+        }
+
     }
 
     _getBoardColumn(column) {
