@@ -1,0 +1,68 @@
+html {
+    background-color: black;
+    color: white;
+}
+
+body{
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    gap: 10px;
+}
+
+.head {
+    border: solid;
+    border-color: white;
+    height: 10vh;
+    display: flex;
+    align-items: center;
+}
+
+.head-inside>h1 {
+    margin: 0px;
+    padding: 0px;
+}
+.head-inside {
+    padding: 10px;
+}
+
+.body {
+    border: solid;
+    border-color: white;
+    height: 90vh;
+    display: flex;
+    gap: 100px;
+    padding: 100px 300px;
+}
+
+
+.grid-1>div, .grid-2>div{
+    height: 600px;
+    width: 600px;
+    border: solid 1px;
+    display: grid;
+    grid-template-columns: repeat(10, 1fr);
+    grid-template-rows: repeat(10, 1fr);
+}
+
+.cell {
+    height: 60px;
+    width: 60px;
+    outline: 1px solid white;
+}
+
+.empty-cell {
+    background-color: rgba(255, 228, 196, 0.288);
+}
+
+.grid-2>div> .cell.contains-ship {
+    background-color: rgba(255, 228, 196, 0.288);
+}
+
+.grid-2>div> .cell.cell-hit {
+    background-color: green;
+}
+
+.grid-2>div> .cell.cell-miss {
+    background-color: rgba(255, 0, 0, 0.34);
+}

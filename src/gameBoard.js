@@ -9,7 +9,7 @@ export class gameBoard {
             this.board.push(row);
         }
         this.shipMap = new Map();
-        this.sunkenShips = [];
+        this.sunkenShips = new Set();
     }
     
     placeShip(name, startCoordinate, orientation = "h") {
@@ -47,32 +47,32 @@ export class gameBoard {
     receiveAttack(coordinate) {
         let row = coordinate[0];
         let col = coordinate[1];
+
+        let location;
         try {
-            let location = this.board[row][col];
-            
-            if (location == 0) {
-                // no ship present
-                this.board[row][col] = "M"
-                return [false , this.checkIfAllShipsSunk()];
-            }
-
-            if (this.shipMap.has(location)) {
-                let ship = this.shipMap.get(location);
-                this.board[row][col] = "H"
-                ship.hit();
-
-                if (ship.isSunk()) {
-                    this.sunkenShips.push(ship);
-                }
-                return [true , this.checkIfAllShipsSunk()];
-            }
-
-            return [false , this.checkIfAllShipsSunk()];
-       
+            location = this.board[row][col];
         } catch(e){
             throw new Error("Invalid Coordinates");
         }
 
+        if (location == 0) {
+            // no ship present
+            this.board[row][col] = "M"
+            return [false , this.checkIfAllShipsSunk()];
+        }
+
+        if (this.shipMap.has(location)) {
+            let ship = this.shipMap.get(location);
+            this.board[row][col] = "H"
+            ship.hit();
+
+            if (ship.isSunk()) {
+                this.sunkenShips.add(ship);
+            }
+            return [true , this.checkIfAllShipsSunk()];
+        }
+
+        return [false , this.checkIfAllShipsSunk()];
     }
 
     checkIfAllShipsSunk(){
