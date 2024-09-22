@@ -11,6 +11,23 @@ export class gameBoard {
         this.shipMap = new Map();
         this.sunkenShips = new Set();
     }
+
+    placeShipsRandomly() {
+        let ships = ["carrier", "battleship", "cruiser", "submarine", "destroyer"];
+
+        while(ships.length > 0) {
+            let randomStartCoordinate = [Math.floor(Math.random() * 10), Math.floor(Math.random() * 10)]
+            let orientation = ["h", "v"]
+            let ship = ships.pop();
+            try {
+                this.placeShip(ship, randomStartCoordinate, orientation[Math.floor(Math.random() * 2)]);
+            } catch(e) {
+                ships.push(ship)
+                continue;
+            }
+            
+        }
+    }
     
     placeShip(name, startCoordinate, orientation = "h") {
 
@@ -76,7 +93,7 @@ export class gameBoard {
     }
 
     checkIfAllShipsSunk(){
-        if(this.sunkenShips.length == this.shipMap.keys.length) {
+        if(this.sunkenShips.size == this.shipMap.size) {
             return true;
         }
         return false;

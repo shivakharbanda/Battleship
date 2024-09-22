@@ -2,6 +2,10 @@ html {
     background-color: black;
     color: white;
 }
+h1, h2, h3, h4, h4, h6, p, div {
+    margin: 0px;
+    padding: 0px;
+}
 
 body{
     display: flex;
@@ -65,4 +69,31 @@ body{
 
 .grid-2>div> .cell.cell-miss {
     background-color: rgba(255, 0, 0, 0.34);
+}
+#game-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+#game-container > div {
+    background-color: rgba(128, 128, 128, 0.393);
+    height: 50vh;
+    width: 70vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+
+.mode-container-2 {
+    display: flex;
+    gap: 10px;
+}
+
+.mode-container-2 >button {
+    height: 50px;
+    width: 100px;
+    border-radius: 30px;
+    border: 1px solid black;
 }
