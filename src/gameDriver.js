@@ -40,8 +40,41 @@ export class gameDriver{
             if(target.tagName.toLowerCase() == "button") {
                 this.setMode(target.textContent);
                 this.emptyContainer();
+                this.startModePlay(target.textContent);
             }
         })
+    }
+    startModePlay(mode) {
+        if (mode == "1 Player") {
+            this.startModePlaySingle()
+        } else {
+            this.startModePlayDouble()
+        }
+    }
+    startModePlaySingle() {
+        let chooseModeContainer = document.createElement("div");
+
+        chooseModeContainer.id = "deploy-ships";
+
+        let conatiner1 = document.createElement("div");
+
+        let container2 = document.createElement("div");
+
+        let titleElement = document.createElement("h3") 
+        titleElement.textContent = "Deploy Ships"
+        conatiner1.appendChild(titleElement)
+        chooseModeContainer.appendChild(conatiner1)
+        chooseModeContainer.appendChild(container2)
+
+        container2.classList.add("mode-container-2")
+
+        let playerVsPlayerModeBtn = document.createElement("div");
+
+        playerVsPlayerModeBtn.textContent = "2 Players";
+
+        container2.appendChild(playerVsPlayerModeBtn);
+
+        this.container.append(chooseModeContainer);
     }
 
     setMode(mode) {

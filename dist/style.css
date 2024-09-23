@@ -75,14 +75,14 @@ body{
     justify-content: center;
     align-items: center;
 }
-#game-container > div {
+#game-container > #chooseMode {
     background-color: rgba(128, 128, 128, 0.393);
     height: 50vh;
-    width: 70vh;
+    width: 70vw;
     display: flex;
     flex-direction: column;
     justify-content: center;
-    align-items: center;
+    align-items: center;      
     gap: 10px;
 }
 
@@ -96,4 +96,23 @@ body{
     width: 100px;
     border-radius: 30px;
     border: 1px solid black;
+}
+
+#game-container > #deploy-ships {
+    background-color: rgba(128, 128, 128, 0.393);
+    height: 80vh;
+    width: 90vw;
+    display: flex;
+    flex-direction: column;
+    align-items: center;      
+    gap: 10px;
+}
+
+#deploy-ships {
+    height: 100%;
+    display: flex;
+}
+#deploy-ships> .mode-container-2 {
+    height: 100%;
+    width: 100%;
 }
